@@ -25,6 +25,10 @@ function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span>Dashboard</span>
             </Link>
+            <Link to="/tasks" className="text-gray-400 hover:text-purple-400 flex items-center space-x-1 text-sm font-medium transition-colors">
+  <CheckCircle className="h-4 w-4" />
+  <span>Tasks</span>
+</Link>
             <button 
               onClick={logout}
               className="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50 text-sm font-medium"
