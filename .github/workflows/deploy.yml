@@ -28,17 +28,22 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: ./src/package.json
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd src
+          npm install
 
       - name: Build project
-        run: npm run build
+        run: |
+          cd src
+          npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./src/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
