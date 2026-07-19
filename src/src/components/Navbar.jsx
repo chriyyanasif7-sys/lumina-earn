@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Coins, LogIn, UserPlus, LogOut, LayoutDashboard } from 'lucide-react';
+import { Coins, LogIn, UserPlus, LogOut, LayoutDashboard, ArrowDownCircle } from 'lucide-react';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -25,10 +25,13 @@ function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span>Dashboard</span>
             </Link>
-            <Link to="/tasks" className="text-gray-400 hover:text-purple-400 flex items-center space-x-1 text-sm font-medium transition-colors">
-  <CheckCircle className="h-4 w-4" />
-  <span>Tasks</span>
-</Link>
+            
+            {/* Naya Withdrawal Link */}
+            <Link to="/withdraw" className="text-gray-400 hover:text-emerald-400 flex items-center space-x-1 text-sm font-medium transition-colors">
+              <ArrowDownCircle className="h-4 w-4" />
+              <span>Cashout</span>
+            </Link>
+
             <button 
               onClick={logout}
               className="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50 text-sm font-medium"
