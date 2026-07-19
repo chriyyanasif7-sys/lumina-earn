@@ -12,8 +12,9 @@ function Tasks() {
   
   // Ad States
   const [isAdPlaying, setIsAdPlaying] = useState(false);
-  const [adCountdown, setAdCountdown] = useState(15); // 15 Seconds Secure Web Ad
+  const [adCountdown, setAdCountdown] = useState(15); // 15 Seconds Secure Countdown
 
+  // 1. Fetch live user data and points from Firestore
   useEffect(() => {
     if (!user) return;
 
@@ -25,6 +26,7 @@ function Tasks() {
         const data = userSnap.data();
         setPoints(data.points || 0);
 
+        // Strict 24-Hour Cooldown Validation
         if (data.lastCheckIn) {
           const lastCheckInTime = new Date(data.lastCheckIn).getTime();
           const currentTime = new Date().getTime();
@@ -42,7 +44,7 @@ function Tasks() {
     fetchUserData();
   }, [user]);
 
-  // Daily Check-in Logic
+  // 2. Daily Check-in Function (+20 Points Reward)
   const handleDailyCheckIn = async () => {
     if (!canCheckIn || !user) return;
     try {
@@ -63,13 +65,17 @@ function Tasks() {
     }
   };
 
-  // Rewarded Ad Starter Logic
+  // 3. Rewarded Ad Starter Logic (Opens your real Adsterra Smart Link)
   const startRewardedAd = () => {
     setIsAdPlaying(true);
     setAdCountdown(15);
+    
+    // Aapka Real Adsterra Smart Link new tab me open hoga jo revenue generate karega
+    const adUrl = "https://www.effectivecpmnetwork.com/dny21rksu?key=f40f24c7e67e42b9e6c78db6383b245b";
+    window.open(adUrl, '_blank');
   };
 
-  // Ad Timer Hook
+  // 4. Ad Timer Hook (Validates completion behavior)
   useEffect(() => {
     let timer;
     if (isAdPlaying && adCountdown > 0) {
@@ -77,26 +83,24 @@ function Tasks() {
         setAdCountdown(prev => prev - 1);
       }, 1000);
     } else if (isAdPlaying && adCountdown === 0) {
-      // Reward claim trigger callback
       handleAdRewardClaim();
     }
     return () => clearInterval(timer);
   }, [isAdPlaying, adCountdown]);
 
-  // Securely credit points after full completion
+  // 5. Securely credit points after full completion countdown
   const handleAdRewardClaim = async () => {
     setIsAdPlaying(false);
     if (!user) return;
 
     try {
       const userRef = doc(db, 'users', user.uid);
-      // Admin dynamically sets 10 points per Ad view
       await updateDoc(userRef, {
-        points: increment(10)
+        points: increment(10) // Admin Choice: +10 Points per ad view
       });
 
       setPoints(prev => prev + 10);
-      alert('Ad Completed! +10 Points successfully credited to your wallet.');
+      alert('Ad Completed Successfully! +10 Points have been added to your wallet.');
     } catch (error) {
       alert('Failed to credit points. Please try again.');
     }
@@ -105,7 +109,7 @@ function Tasks() {
   return (
     <div className="space-y-8 py-6 max-w-4xl mx-auto relative">
       
-      {/* Premium Video Ad Modal Backdrop */}
+      {/* Premium Video Ad Modal Backdrop Overlay */}
       {isAdPlaying && (
         <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
           <div className="max-w-md w-full border border-gray-800 bg-[#111827] p-8 rounded-3xl text-center space-y-6 shadow-2xl relative overflow-hidden">
@@ -122,7 +126,7 @@ function Tasks() {
             
             <div className="space-y-2">
               <h3 className="text-xl font-bold text-white">Streaming Sponsored Ad</h3>
-              <p className="text-sm text-gray-400">Please do not close or refresh the window to guarantee your rewards.</p>
+              <p className="text-sm text-gray-400">Please do not close or refresh the main window to guarantee your rewards.</p>
             </div>
 
             <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
@@ -185,7 +189,7 @@ function Tasks() {
           </button>
         </div>
 
-        {/* Dynamic Rewarded Ad Action */}
+        {/* Live Integrated Rewarded Ad Action */}
         <div className="bg-[#111827] border border-gray-800 p-5 rounded-2xl flex flex-col justify-between">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
