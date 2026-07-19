@@ -7,7 +7,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
-import Withdraw from './pages/Withdraw'; // Naya Page Import Kiya
+import Withdraw from './pages/Withdraw';
+import AdminDashboard from './pages/AdminDashboard'; // Admin Dashboard Import Kiya
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -47,6 +48,14 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              <Route 
+                path="/admin" 
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                } 
+              />
 
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
@@ -58,4 +67,3 @@ function App() {
 }
 
 export default App;
-
