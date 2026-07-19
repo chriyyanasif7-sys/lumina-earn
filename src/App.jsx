@@ -1,3 +1,4 @@
+import Tasks from './pages/Tasks';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -27,6 +28,14 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              <Route 
+  path="/tasks" 
+  element={
+    <ProtectedRoute>
+      <Tasks />
+    </ProtectedRoute>
+  } 
+/>
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
