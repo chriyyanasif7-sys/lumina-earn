@@ -1,4 +1,3 @@
-import Tasks from './pages/Tasks';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -7,6 +6,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Tasks from './pages/Tasks';
+import Withdraw from './pages/Withdraw'; // Naya Page Import Kiya
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              
+              {/* Secure Protected Routes */}
               <Route 
                 path="/dashboard" 
                 element={
@@ -29,13 +32,22 @@ function App() {
                 } 
               />
               <Route 
-  path="/tasks" 
-  element={
-    <ProtectedRoute>
-      <Tasks />
-    </ProtectedRoute>
-  } 
-/>
+                path="/tasks" 
+                element={
+                  <ProtectedRoute>
+                    <Tasks />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/withdraw" 
+                element={
+                  <ProtectedRoute>
+                    <Withdraw />
+                  </ProtectedRoute>
+                } 
+              />
+
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
@@ -46,3 +58,4 @@ function App() {
 }
 
 export default App;
+
