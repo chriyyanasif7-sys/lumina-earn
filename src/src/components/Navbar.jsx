@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Coins, LogIn, UserPlus, LogOut } from 'lucide-react';
+import { Coins, LogIn, UserPlus, LogOut, LayoutDashboard } from 'lucide-react';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -20,20 +20,26 @@ function Navbar() {
 
       <div className="flex items-center space-x-4">
         {user ? (
-          <button 
-            onClick={logout}
-            className="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50"
-          >
-            <LogOut className="h-4 w-4" />
-            <span>Logout</span>
-          </button>
+          <>
+            <Link to="/dashboard" className="text-gray-400 hover:text-purple-400 flex items-center space-x-1 text-sm font-medium transition-colors">
+              <LayoutDashboard className="h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+            <button 
+              onClick={logout}
+              className="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50 text-sm font-medium"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>Logout</span>
+            </button>
+          </>
         ) : (
           <>
-            <Link to="/login" className="flex items-center space-x-1 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50">
+            <Link to="/login" className="flex items-center space-x-1 text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-gray-800/50 text-sm font-medium">
               <LogIn className="h-4 w-4" />
               <span>Login</span>
             </Link>
-            <Link to="/register" className="flex items-center space-x-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-xl font-medium hover:opacity-90 transition-opacity shadow-lg shadow-purple-600/20">
+            <Link to="/register" className="flex items-center space-x-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-xl font-medium hover:opacity-90 transition-opacity shadow-lg shadow-purple-600/20 text-sm">
               <UserPlus className="h-4 w-4" />
               <span>Join Now</span>
             </Link>
